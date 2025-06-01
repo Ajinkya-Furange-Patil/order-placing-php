@@ -14,14 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'furangeaditya@gmail.com'; // Your Gmail address
-        $mail->Password = 'yiatuhrbmkpexcok';       // Your App Password
+        $mail->Username = 'mailOfSender@gmail.com'; // Your Gmail address
+        $mail->Password = 'password';       // Your App Password
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
         // Recipients
-        $mail->setFrom('furangeaditya@gmail.com', 'Shivansh Krushi Seva Kendra');
-        $mail->addAddress('furangeaditya@gmail.com'); // Recipient email
+        $mail->setFrom('mailOfSender@gmail.com', 'Sender Company Name');
+        $mail->addAddress('mailOfReceiver@gmail.com'); // Recipient email
 
         // Content
         $mail->isHTML(true);
