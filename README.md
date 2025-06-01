@@ -1,36 +1,32 @@
-# 🛒 Order Placing System using PHP
+# 🛒 Simple PHP Order Placing System
 
-A mini e-commerce simulation built with **PHP + MySQL** where users can place an order and admins can track it in real time. This project also integrates **Email, WhatsApp, and SMS notifications**, giving it that real-world feel.
+This is a lightweight, no-database order placement system built using **HTML, CSS, JavaScript, and PHP**, with **SMTP email notification** support. It simulates a basic e-commerce experience—from selecting a product to confirming an order, and notifying the admin/user via email.
 
-> 🔧 Made for learning, built with 💻 by [Ajinkya Furange Patil](https://github.com/Ajinkya-Furange-Patil)
+> ✅ No MySQL. No external APIs. Just good old PHP & frontend tech.
 
 ---
 
-## 📦 Features
+## 📦 Key Features
 
-- 🛍️ Add to Cart ➡️ Place Order flow
-- 👤 Admin panel with real-time order updates
-- 📧 Multi-channel notifications:
-  - Email
-  - WhatsApp
-  - SMS
-- 📊 MySQL Database integration
-- 📱 Mobile-friendly frontend
+- ✅ Simple "Add to Cart → Order Placed" flow
+- ✉️ Email notifications via PHP SMTP (like PHPMailer)
+- 🧑‍💻 Admin panel to track placed orders
+- 🖼️ Clean UI using HTML + CSS + a touch of JavaScript
+- 🚫 No database or API dependency
 
 ---
 
 ## 🖥️ Tech Stack
 
-- **Frontend**: HTML, CSS, Bootstrap
-- **Backend**: PHP
-- **Database**: MySQL
-- **Notifications**: SMTP (Email), Twilio (SMS), WhatsApp API
+- **Frontend**: HTML, CSS, JavaScript
+- **Backend**: PHP (pure & simple)
+- **Email**: PHP-based SMTP (e.g., [PHPMailer](https://github.com/PHPMailer/PHPMailer))
 
 ---
 
-## 🛠️ Installation & Setup
+## ⚙️ How to Run It Locally
 
-### 1. Clone the Repository
+### 1. Clone the Repo
 
 ```bash
 git clone https://github.com/Ajinkya-Furange-Patil/order-placing-php.git
