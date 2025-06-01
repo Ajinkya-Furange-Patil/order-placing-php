@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cart System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background: #f8f8f8;
+      }
+      .product,
+      .cart,
+      form {
+        background: #fff;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+      }
+      .product button {
+        float: right;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .product button:hover {
+        background-color: #218838;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      button[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+      #cartItems div {
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🛒 Products</h2>
+    <div class="product">
+      <span>Product A - ₹100</span>
+      <button type="button" onclick="addToCart('Product A', 100)">
+        Add to Cart
+      </button>
+    </div>
+    <div class="product">
+      <span>Product B - ₹150</span>
+      <button type="button" onclick="addToCart('Product B', 150)">
+        Add to Cart
+      </button>
+    </div>
+    <div class="product">
+      <span>Product C - ₹200</span>
+      <button type="button" onclick="addToCart('Product C', 200)">
+        Add to Cart
+      </button>
+    </div>
+
+    <h2>🧺 Cart</h2>
+    <div class="cart">
+      <div id="cartItems">No items in cart.</div>
+      <strong>Total: ₹<span id="cartTotal">0</span></strong>
+    </div>
+
+    <form action="send.php" method="POST" onsubmit="return prepareOrder()">
+      <h3>📦 Your Details</h3>
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="text" name="phone" placeholder="Phone Number" required />
+      <input type="email" name="email" placeholder="Email Address" required />
+      <textarea name="address" placeholder="Your Address" required></textarea>
+
+      <h3>🧾 Order Summary</h3>
+      <!-- hidden input to hold the full HTML table string -->
+      <input type="hidden" name="orderHTML" id="orderHTML" />
+      <button type="submit">Place Order</button>
+    </form>
+
+    <script>
+      let cart = [];
+
+      function addToCart(name, price) {
+        const existingItem = cart.find((item) => item.name === name);
+        if (existingItem) {
+          existingItem.qty += 1;
+        } else {
+          cart.push({ name, price, qty: 1 });
+        }
+        updateCart();
+      }
+
+      function updateCart() {
+        const cartItemsDiv = document.getElementById("cartItems");
+        let total = 0;
+        if (cart.length === 0) {
+          cartItemsDiv.innerHTML = "No items in cart.";
+        } else {
+          cartItemsDiv.innerHTML = "";
+          cart.forEach((item, index) => {
+            total += item.price * item.qty;
+            cartItemsDiv.innerHTML += `<div>${index + 1}. ${item.name} - ₹${
+              item.price
+            } × ${item.qty}</div>`;
+          });
+        }
+        document.getElementById("cartTotal").innerText = total;
+      }
+
+      function prepareOrder() {
+        if (cart.length === 0) {
+          alert("Cart is empty! Please add some products.");
+          return false;
+        }
+
+        let tableHTML = `
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+    <thead style="background-color:#f2f2f2;">
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+  `;
+
+        let total = 0;
+
+        cart.forEach((item) => {
+          const subtotal = item.price * item.qty;
+          total += subtotal;
+
+          tableHTML += `
+      <tr>
+        <td>${item.name}</td>
+        <td>₹${item.price}</td>
+        <td>${item.qty}</td>
+        <td>₹${subtotal}</td>
+      </tr>
+    `;
+        });
+
+        tableHTML += `
+    <tr>
+      <td colspan="3" style="text-align:right; font-weight:bold;">Total</td>
+      <td>₹${total}</td>
+    </tr>
+  </tbody></table>`;
+
+        // Fill hidden input with HTML string
+        document.getElementById("orderHTML").value = tableHTML;
+
+        return true;
+      }
+    </script>
+  </body>
+</html>
